@@ -1,0 +1,29 @@
+{
+  "name": "crm-backend",
+  "version": "1.0.0",
+  "description": "\"# crm-app-backend\"",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiteshpahwa04/crm-app-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jiteshpahwa04/crm-app-backend/issues"
+  },
+  "homepage": "https://github.com/jiteshpahwa04/crm-app-backend#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
