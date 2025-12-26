@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2016",             /* Javascript version to compile to */
+    "module": "commonjs",           /* Standard for Node.js */
+    "rootDir": "./src",             /* Where your .ts files live */
+    "outDir": "./dist",             /* Where .js files will be built */
+    "esModuleInterop": true,        /* Allow default imports from CommonJS modules */
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*"]
+}
