@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/jiteshpahwa04/crm-app-backend#readme",
   "dependencies": {
+    "@prisma/client": "6.19",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.2.1"
@@ -28,6 +29,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^25.0.3",
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.11",
+    "prisma": "6.19"
   }
 }
