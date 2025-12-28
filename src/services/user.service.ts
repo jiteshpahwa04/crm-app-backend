@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import UserRepository from '../repositories/user.repository';
+import CreateUserDTO from '../dtos/createUser.dto';
 
 class UserService {
   private userRepository: UserRepository;
@@ -27,6 +28,16 @@ class UserService {
       return users;
     } catch (error) {
       console.error('Error fetching all users:', error);
+      throw error;
+    }
+  }
+
+  async createUser(userDetails: CreateUserDTO): Promise<User> {
+    try {
+      const newUser: User = await this.userRepository.create(userDetails);
+      return newUser;
+    } catch (error) {
+      console.error('Error creating user:', error);
       throw error;
     }
   }

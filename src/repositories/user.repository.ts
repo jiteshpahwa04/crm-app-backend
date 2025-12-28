@@ -1,8 +1,14 @@
 import { PrismaClient, User } from '@prisma/client';
+import CreateUserDTO from '../dtos/createUser.dto';
 const prisma = new PrismaClient();
 
 class UserRepository {
-  async create() {}
+  async create(userDetails: CreateUserDTO): Promise<User> {
+    const user = await prisma.user.create({
+      data: userDetails,
+    });
+    return user;
+  }
 
   async get(userId: string): Promise<User | null> {
     const user = prisma.user.findUnique({

@@ -39,4 +39,23 @@ const getAllUsersHandler = async (req: Request, res: Response) => {
     });
   }
 };
-export default { getUserByIdHandler, getAllUsersHandler };
+
+const createUserHandler = async (req: Request, res: Response) => {
+  try {
+    const userDetails = req.body;
+    const newUser = await userService.createUser(userDetails);
+    res.status(201).json({
+      success: true,
+      message: 'User created successfully',
+      data: newUser,
+    });
+  } catch (error) {
+    console.error('Error in createUserHandler:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
+  }
+};
+
+export default { getUserByIdHandler, getAllUsersHandler, createUserHandler };
