@@ -3,6 +3,7 @@ import UserRepository from '../repositories/user.repository';
 import CreateUserDTO from '../dtos/createUser.dto';
 import bcrypt from 'bcryptjs';
 import { SERVER_CONFIG } from '../config/server.config';
+import { generateJWT } from '../utils/auth.utils';
 
 class UserService {
   private userRepository: UserRepository;
@@ -37,14 +38,33 @@ class UserService {
   async createUser(userDetails: CreateUserDTO): Promise<User> {
     try {
       // Encrypt password logic can be added here before creating the user
-      const hashedPassword = userDetails.password;
-      const salt = bcrypt.genSaltSync(SERVER_CONFIG.SALT_ROUNDS as number);
-      bcrypt.hashSync(userDetails.password, salt);
+      const salt = bcrypt.genSaltSync(Number(SERVER_CONFIG.SALT_ROUNDS));
+      console.log('Generated Salt:', salt);
+      const hashedPassword = bcrypt.hashSync(userDetails.password, salt);
       userDetails.password = hashedPassword;
       const newUser: User = await this.userRepository.create(userDetails);
       return newUser;
     } catch (error) {
       console.error('Error creating user:', error);
+      throw error;
+    }
+  }
+
+  async signInUser(email: string, password: string): Promise<string> {
+    try {
+      const user: User | null = await this.userRepository.getByEmail(email);
+      console.log('Fetched User for SignIn:', user);
+      if (!user) {
+        throw new Error('Invalid email or password');
+      }
+      const isPasswordValid = bcrypt.compareSync(password, user.password);
+      if (!isPasswordValid) {
+        throw new Error('Invalid email or password');
+      }
+      const jwtToken = generateJWT(user);
+      return jwtToken;
+    } catch (error) {
+      console.error('Error signing in user:', error);
       throw error;
     }
   }

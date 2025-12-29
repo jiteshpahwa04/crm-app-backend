@@ -6,6 +6,11 @@ const userRouter = express.Router();
 
 userRouter.get('/:id', userController.getUserByIdHandler);
 userRouter.get('/', userController.getAllUsersHandler);
-userRouter.post('/', createUserValidator, userController.createUserHandler);
+userRouter.post(
+  '/signup',
+  createUserValidator,
+  userController.createUserHandler
+);
+userRouter.post('/signin', userController.signInUserHandler);
 
 export default userRouter;

@@ -1,10 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, Length } from 'class-validator';
 
-export default class CreateUserDTO {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
+export default class SignInDTO {
   @IsEmail()
   @IsString()
   @IsNotEmpty()
@@ -15,8 +11,7 @@ export default class CreateUserDTO {
   @Length(6, 20)
   password: string;
 
-  constructor(name: string, email: string, password: string) {
-    this.name = name;
+  constructor(email: string, password: string) {
     this.email = email;
     this.password = password;
   }

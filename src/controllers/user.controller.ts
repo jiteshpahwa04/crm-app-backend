@@ -58,4 +58,27 @@ const createUserHandler = async (req: Request, res: Response) => {
   }
 };
 
-export default { getUserByIdHandler, getAllUsersHandler, createUserHandler };
+const signInUserHandler = async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const jwtToken = await userService.signInUser(email, password);
+    res.status(200).json({
+      success: true,
+      message: 'User signed in successfully',
+      data: jwtToken,
+    });
+  } catch (error) {
+    console.error('Error in signInUserHandler:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Internal server error',
+    });
+  }
+};
+
+export default {
+  getUserByIdHandler,
+  getAllUsersHandler,
+  createUserHandler,
+  signInUserHandler,
+};

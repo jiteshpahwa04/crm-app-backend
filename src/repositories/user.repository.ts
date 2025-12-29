@@ -11,7 +11,7 @@ class UserRepository {
   }
 
   async get(userId: string): Promise<User | null> {
-    const user = prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
     });
 
@@ -19,13 +19,20 @@ class UserRepository {
   }
 
   async getAll(): Promise<User[]> {
-    const users = prisma.user.findMany();
+    const users = await prisma.user.findMany();
     return users;
   }
 
   async delete() {}
 
   async update() {}
+
+  async getByEmail(email: string): Promise<User | null> {
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+    return user;
+  }
 }
 
 export default UserRepository;
