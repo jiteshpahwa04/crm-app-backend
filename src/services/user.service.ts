@@ -1,6 +1,8 @@
 import { User } from '@prisma/client';
 import UserRepository from '../repositories/user.repository';
 import CreateUserDTO from '../dtos/createUser.dto';
+import bcrypt from 'bcryptjs';
+import { SERVER_CONFIG } from '../config/server.config';
 
 class UserService {
   private userRepository: UserRepository;
@@ -34,6 +36,11 @@ class UserService {
 
   async createUser(userDetails: CreateUserDTO): Promise<User> {
     try {
+      // Encrypt password logic can be added here before creating the user
+      const hashedPassword = userDetails.password;
+      const salt = bcrypt.genSaltSync(SERVER_CONFIG.SALT_ROUNDS as number);
+      bcrypt.hashSync(userDetails.password, salt);
+      userDetails.password = hashedPassword;
       const newUser: User = await this.userRepository.create(userDetails);
       return newUser;
     } catch (error) {

@@ -21,6 +21,8 @@
   "homepage": "https://github.com/jiteshpahwa04/crm-app-backend#readme",
   "dependencies": {
     "@prisma/client": "6.19",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
     "class-validator": "^0.14.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
