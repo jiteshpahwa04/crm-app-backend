@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import UserService from '../services/user.service';
 import UserRepository from '../repositories/user.repository';
+import { StatusCodes } from 'http-status-codes';
 
 const userRepository = new UserRepository();
 const userService = new UserService(userRepository);
@@ -16,7 +17,7 @@ const getUserByIdHandler = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error in getUserHandler:', error);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: 'Internal server error',
     });
@@ -33,7 +34,7 @@ const getAllUsersHandler = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error in getAllUsersHandler:', error);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: 'Internal server error',
     });
@@ -51,7 +52,7 @@ const createUserHandler = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error in createUserHandler:', error);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: 'Internal server error',
     });
@@ -69,7 +70,7 @@ const signInUserHandler = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error in signInUserHandler:', error);
-    res.status(500).json({
+    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       success: false,
       message: 'Internal server error',
     });

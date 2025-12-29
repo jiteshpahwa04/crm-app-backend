@@ -1,6 +1,9 @@
 import express from 'express';
 import userController from '../../controllers/user.controller';
-import { createUserValidator } from '../../validators/user.validator';
+import {
+  createUserValidator,
+  signInUserValidator,
+} from '../../validators/user.validator';
 
 const userRouter = express.Router();
 
@@ -11,6 +14,10 @@ userRouter.post(
   createUserValidator,
   userController.createUserHandler
 );
-userRouter.post('/signin', userController.signInUserHandler);
+userRouter.post(
+  '/signin',
+  signInUserValidator,
+  userController.signInUserHandler
+);
 
 export default userRouter;

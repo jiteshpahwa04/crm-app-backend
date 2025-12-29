@@ -39,7 +39,6 @@ class UserService {
     try {
       // Encrypt password logic can be added here before creating the user
       const salt = bcrypt.genSaltSync(Number(SERVER_CONFIG.SALT_ROUNDS));
-      console.log('Generated Salt:', salt);
       const hashedPassword = bcrypt.hashSync(userDetails.password, salt);
       userDetails.password = hashedPassword;
       const newUser: User = await this.userRepository.create(userDetails);
@@ -53,7 +52,6 @@ class UserService {
   async signInUser(email: string, password: string): Promise<string> {
     try {
       const user: User | null = await this.userRepository.getByEmail(email);
-      console.log('Fetched User for SignIn:', user);
       if (!user) {
         throw new Error('Invalid email or password');
       }
