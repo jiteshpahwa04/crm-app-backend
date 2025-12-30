@@ -4,6 +4,8 @@ import CreateUserDTO from '../dtos/createUser.dto';
 import bcrypt from 'bcryptjs';
 import { SERVER_CONFIG } from '../config/server.config';
 import { generateJWT } from '../utils/auth.utils';
+import NotFoundError from '../errors/notFoundError';
+import UnauthorizedError from '../errors/unauthorizedError';
 
 class UserService {
   private userRepository: UserRepository;
@@ -16,7 +18,7 @@ class UserService {
     try {
       const user: User | null = await this.userRepository.get(userId);
       if (!user) {
-        throw new Error('User not found');
+        throw new NotFoundError('User', 'id', userId);
       }
       return user;
     } catch (error) {
@@ -53,11 +55,11 @@ class UserService {
     try {
       const user: User | null = await this.userRepository.getByEmail(email);
       if (!user) {
-        throw new Error('Invalid email or password');
+        throw new NotFoundError('User', 'email', email);
       }
       const isPasswordValid = bcrypt.compareSync(password, user.password);
       if (!isPasswordValid) {
-        throw new Error('Invalid email or password');
+        throw new UnauthorizedError('Invalid credentials provided');
       }
       const jwtToken = generateJWT(user);
       return jwtToken;

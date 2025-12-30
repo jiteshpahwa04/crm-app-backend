@@ -1,16 +1,10 @@
 import { StatusCodes } from 'http-status-codes';
+import GenericError from './genericError';
 
-export default class BadRequest extends Error {
-  statusCode: number;
-  reason: string | object | null;
-  errorMessage: string;
+export default class BadRequest extends GenericError {
   constructor(reason: string | object | null = null) {
     const errorMessage: string =
       'There are some invalid or missing fields in the request';
-    super(errorMessage);
-    this.statusCode = StatusCodes.BAD_REQUEST;
-    this.reason = reason;
-    this.errorMessage = errorMessage;
-    this.name = 'BadRequest';
+    super(StatusCodes.BAD_REQUEST, reason, errorMessage, 'BadRequest');
   }
 }
